@@ -10,10 +10,10 @@ All the source code will be inside **src** directory. Inside src, there is clien
 
 ```bash
 # Clone the repository
-git clone https://github.com/crsandeep/simple-react-full-stack
+git clone https://github.com/eambutu/grupo
 
 # Go inside the directory
-cd simple-react-full-stack
+cd grupo
 
 # Install dependencies
 yarn (or npm install)
