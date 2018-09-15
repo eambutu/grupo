@@ -8,6 +8,7 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Homepage} />
       <Route path="/cart/:cartId" component={Cart} />
+      <Route path="/selection/:selectionId" component={Selection} />
     </Switch>
   </Router>
 )
