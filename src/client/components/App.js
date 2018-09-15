@@ -1,23 +1,15 @@
-import React, { Component } from 'react';
-import '../styles/app.css';
-import ReactImage from '../react.png';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Homepage from './Homepage';
+import Cart from './Cart';
 
-export default class App extends Component {
-  state = { username: null };
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/" component={Homepage} />
+      <Route path="/cart/:cartId" component={Cart} />
+    </Switch>
+  </Router>
+)
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then(res => res.json())
-      .then(user => this.setState({ username: user.username }));
-  }
-
-  render() {
-    const { username } = this.state;
-    return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
-    );
-  }
-}
+export default App;
