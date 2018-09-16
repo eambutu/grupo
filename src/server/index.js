@@ -74,9 +74,15 @@ app.post('/deleteCart', (req, res) => {
   return true;
 });
 
+
 app.get('/getCart', (req, res) => {
-  // TODO: implement
-  res.sendFile();
+  console.log('in get Cart');
+  const cart = new Cart(req.body);
+  var cartsColl = db.collection('carts');
+  var orders = cartsColl.find({"cartid" : cart.cartid}, {"orders":1, _id:0}).toArray(function(err, results) { 
+    console.log(results);
+    res.jsonp(results);
+  });
 });
 
 app.listen(8080, () => console.log('Listening on port 8080!'));
