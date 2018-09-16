@@ -29,3 +29,36 @@
     border: 3px solid #ff4136;
     margin: 5px;
 }
+
+.center {
+    left: 50%;
+}
+
+.orders-table {
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+
+.orders-row-container {
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.orders-row {
+    background-color: #eeeeee;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.orders-element {
+    text-align: left;
+    min-width: 750px;
+    padding: 20px
+
+}

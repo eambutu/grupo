@@ -12,14 +12,14 @@ mongoose.Promise=global.Promise;
 mongoose.connect("mongodb://localhost:27017/grupodb");
 
 var item = new mongoose.Schema({
-  name: String, 
-  quantity: int, 
+  name: String,
+  quantity: int,
   size: String
 });
 
 var orderSchema = new mongoose.Schema({
   name: String,
-  venmo: String,,
+  venmo: String,
   items: [item]
 });
 
@@ -36,10 +36,10 @@ var Carts = mongoose.model("Carts", cartsSchema);
 
 //TODO: Fix requests below
 
-app.post("/createCart", (req, res) ==> {
+app.post("/createCart", (req, res) => {
     var myData = new Cart(req.body);
     mongoose.createCollection(req.body.cartid);
-});    
+});
 
 app.post("/addOrder", (req, res) => {
     var myData = new Order(req.body);
@@ -53,7 +53,7 @@ app.post("/addOrder", (req, res) => {
 });
 
 app.get("/getCart", (req, res) => {
-    
+
     res.sendFile();
 });
 
