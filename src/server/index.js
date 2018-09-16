@@ -1,6 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+
+function randString(length) {
+  return crypto.randomBytes(length / 2).toString('hex');
+}
 
 const app = express();
 
@@ -50,24 +55,51 @@ db.once('open', () => {
 
 app.post('/createCart', (req, res) => {
   console.log('in create Cart');
-  const newCart = new Cart(req.body);
-  newCart.save().then(item => {
-    res.send("Cart saved to database");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+  const cartId = randString(6);
+  const newCart = new Cart({ cartid: cartId, orders: [] });
+  newCart.save().then(() => {
+    res.json({
+      success: true,
+      cartid: cartId
+    });
   }).catch(err => {
-    res.status(400).send('Unable to save to database');
+    console.log(err);
+    res.json({ success: false });
   });
 });
 
 app.post('/addOrder', (req, res) => {
+  console.log('in add Order');
   const myData = new Order(req.body)
   var cartsColl = db.collection('carts');
   cartsColl.findOneAndUpdate({"cartid" : myData.cartid}, {$push: { orders: myData}});
-  return true;
+  res.json({
+    success: true
+  });
 });
 
+app.post('/deleteCart', (req, res) => {
+  console.log('in delete Cart');
+  const cart = new Cart(req.body);
+  var cartsColl = db.collection('carts');
+  cartsColl.remove({"cartid": cart.cartid});
+  res.json({
+    success: true
+  });
+});
+
+
 app.get('/getCart', (req, res) => {
-  // TODO: implement
-  res.sendFile();
+  console.log('in get Cart');
+  const cart = new Cart(req.body);
+  var cartsColl = db.collection('carts');
+  var orders = cartsColl.find({"cartid" : cart.cartid}, {"orders":1, _id:0}).toArray(function(err, results) { 
+    console.log(results);
+    res.jsonp(results);
+  });
 });
 
 app.listen(8080, () => console.log('Listening on port 8080!'));

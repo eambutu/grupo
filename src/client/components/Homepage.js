@@ -6,8 +6,19 @@ class Homepage extends Component {
     super(props);
 
     this.createCart = () => {
-      // Some logic to go and create a cart, and should somehow return an ID
-      window.location = '/cart/1';
+      fetch('http://localhost:8080/createCart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(res => res.json())
+        .then((cart) => {
+          console.log(cart);
+          if (cart.success) {
+            window.location = '/cart/' + cart.cartid;
+          }
+        });
     };
   }
 
