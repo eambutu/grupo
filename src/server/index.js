@@ -24,13 +24,13 @@ mongoose.connect("mongodb://localhost:27017/grupodb");
 
 var db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'))
+db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
     //define schema
     var item = new mongoose.Schema({
       name: String, 
-      quantity: Number,, 
+      quantity: Number, 
       size: String
     });
 
@@ -55,10 +55,10 @@ db.once('open', function() {
     //Models
     var Order = mongoose.model("Order", orderSchema);
     var Carts = mongoose.model("Carts", cartsSchema);
-}
-mongoose.createCollection("Carts");
+});
+db.createCollection("Carts");
 
-app.post("/createCart", (req, res) ==> {
+app.post("/createCart", (req, res) => {
     var newCart = new Cart(req.body);
     newCart.save(function (error, newCart) {
       if (err) return console.error(err);
@@ -70,15 +70,13 @@ app.post("/addOrder", (req, res) => {
     var myData = new Order(req.body)
     var currentCart = db.Carts.find({id: myData.cartId});
     var currentCartItems = currentCart.orders;
-    var updatedCartItems = $concatArrays: [currentCartItems, [myData]];
-    db.Carts.findOneAndUpdate({"id": myData.cartId}, 
-    myData.save()
-        .then(item => {
-            res.send("Order saved to database");
-        })
-        .catch(err => {
-            res.status(400).send("Unable to save to database");
-        });
+    var updatedCartItems = {$concatArrays: [currentCartItems, [myData]]};
+    db.Carts.findOneAndUpdate({"cartid": myData.cartId}, 
+        myData.save().then(item => {
+	    res.send("Order saved to database");
+        }).catch(err => {
+	    res.status(400).send("Unable to save to database");
+        }));
 });
 
 app.get("/getCart", (req, res) => {
