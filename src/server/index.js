@@ -20,6 +20,8 @@ const db = mongoose.connection;
 let Cart;
 let Order;
 let Carts;
+let Menu;
+let Menus;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
@@ -73,50 +75,50 @@ db.once('open', () => {
 app.post('/createMenu', (req, res) => {
   console.log('in create Menu');
   const menuId = 'AAA111';//randString(6);
-  var newMenu = new Menu({ menuid: menuId, 
+  var newMenu = new Menu({ menuid: menuId,
     items: [
-      {   
+      {
         name: "Chick-fil-A Chicken Sandwhich",
         price: 3.99
-      },  
-      {   
+      },
+      {
         name: "Chick-fil-A Delux Sandwhich",
         price: 4.59
-      },  
-      {   
+      },
+      {
         name: "SpicyChicken Sandwhich",
         price: 4.35
-      },  
-      {   
+      },
+      {
         name: "Spicy Deluxe Sandwhich",
         price: 4.95
-      },  
-      {   
+      },
+      {
         name: "Grilled Chicken Sandwhich",
         price: 5.45
-      },  
-      {   
+      },
+      {
         name: "Grilled Chicken Club Sandwich",
         price: 6.89
-      },  
-      {   
+      },
+      {
         name: "Chick-fil-A Nuggets",
         price: 4.09
-      },  
-      {   
+      },
+      {
         name: "Chick-n-Strips",
         price: 4.39
-      },  
-      {   
+      },
+      {
         name: "Grilled Chicken Cool Wrap",
         price: 6.65
-      },  
-      {   
+      },
+      {
         name: "Grilled Nuggets",
         price: 3.99
       }]
     });
-  newMenu.save().then() => {
+  newMenu.save().then(() => {
     res.json({
       success: true,
       menuid: menuId
