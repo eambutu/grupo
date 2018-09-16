@@ -63,7 +63,7 @@ class Cart extends Component {
                     <table>
                       <tbody>
                         {Object.values(order.items).map(item => (
-                          <tr>
+                          <tr className="order-element-single">
                             {item.name}, {item.quantity}, {item.size}
                           </tr>
                         ))}
