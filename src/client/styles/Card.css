@@ -1,0 +1,83 @@
+.outer-div {
+    position: relative;
+    width: 365px;
+    height: 100px;
+    margin: 0 auto;
+    border-width: 1px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    display: -webkit-flex;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .card-img-container {
+    width: 30%;
+    left: 0px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -webkit-align-content: center;
+    align-content: center;
+  }
+  .card-img {
+    margin: auto 0;
+    max-width: 90%;
+    max-height: 80%;
+  }
+  
+  .flex-col {
+    -webkit-flex: 1;
+    flex: 1;
+  }
+  
+  .item-name{
+    padding: 10px 0px;
+  }
+  
+  .flex-col2 {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -webkit-align-content: center;
+    align-content: center;
+    width: 80px;
+    margin: auto 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .vertical-align {
+    height:100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -webkit-align-content: center;
+    align-content: center;
+  }
+  
+  .item-description {
+    font-size: 12px;
+    text-overflow: ellipsis;
+    padding: 0 10% 0 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .item-price {
+    position:relative;
+    margin-top: -25px;
+  }
+  .button-buy {
+    position: absolute;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 0px;
+    background-color: blue;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
