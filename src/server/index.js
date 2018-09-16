@@ -72,8 +72,50 @@ db.once('open', () => {
 
 app.post('/createMenu', (req, res) => {
   console.log('in create Menu');
-  const menuId = randString(6);
-  const newMenu = new Menu({ menuid: menuId, items: [] });
+  const menuId = 'AAA111';//randString(6);
+  var newMenu = new Menu({ menuid: menuId, 
+    items: [
+      {   
+        name: "Chick-fil-A Chicken Sandwhich",
+        price: 3.99
+      },  
+      {   
+        name: "Chick-fil-A Delux Sandwhich",
+        price: 4.59
+      },  
+      {   
+        name: "SpicyChicken Sandwhich",
+        price: 4.35
+      },  
+      {   
+        name: "Spicy Deluxe Sandwhich",
+        price: 4.95
+      },  
+      {   
+        name: "Grilled Chicken Sandwhich",
+        price: 5.45
+      },  
+      {   
+        name: "Grilled Chicken Club Sandwich",
+        price: 6.89
+      },  
+      {   
+        name: "Chick-fil-A Nuggets",
+        price: 4.09
+      },  
+      {   
+        name: "Chick-n-Strips",
+        price: 4.39
+      },  
+      {   
+        name: "Grilled Chicken Cool Wrap",
+        price: 6.65
+      },  
+      {   
+        name: "Grilled Nuggets",
+        price: 3.99
+      }]
+    });
   newMenu.save().then() => {
     res.json({
       success: true,
@@ -82,6 +124,15 @@ app.post('/createMenu', (req, res) => {
   }).catch(err => {
     console.log(err);
     res.json({ success: false });
+  });
+});
+
+app.get('/getMenu', (req, res) => {
+  console.log('in get Menu');
+  var menusColl = db.collection('menus');
+  var items = menusColl.find({"menuid" : 'AAA111'}, {"items":1, _id:0}).toArray(function(err, results) {
+    console.log(results);
+    res.json(results);
   });
 });
 
@@ -101,60 +152,6 @@ app.post('/createCart', (req, res) => {
     console.log(err);
     res.json({ success: false });
   });
-
-  const newMenu = new Menu({items: [
-    {
-      name: "Chick-fil-A Chicken Sandwhich",
-      price: 3.99
-    },
-    {
-      name: "Chick-fil-A Delux Sandwhich",
-      price: 4.59
-    }, 
-    {
-      name: "SpicyChicken Sandwhich",
-      price: 4.35
-    },
-    {
-      name: "Spicy Deluxe Sandwhich",
-      price: 4.95
-    },
-    {
-      name: "Grilled Chicken Sandwhich",
-      price: 5.45
-    },
-    {
-      name: "Grilled Chicken Club Sandwich",
-      price: 6.89
-    },
-    {
-      name: "Chick-fil-A Nuggets",
-      price: 4.09
-    },
-    {
-      name: "Chick-n-Strips",
-      price: 4.39
-    },
-    {
-      name: "Grilled Chicken Cool Wrap",
-      price: 6.65
-    },
-    {
-      name: "Grilled Nuggets",
-      price: 3.99
-    }
-  ]});
-
-  newMenu.save().then(() => {
-    res.json({
-      success: true
-    });
-  }).catch(err => {
-    console.log(err);
-    res.json({ success: false });
-  });
-
-
 });
 
 app.post('/addOrder', (req, res) => {
