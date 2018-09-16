@@ -9,7 +9,6 @@ class Selection extends Component {
     constructor(props) {
         super(props);
         this.updateState = this.updateState.bind(this);
-        this.checkOrder = this.checkOrder.bind(this);
         this.state = {
             orders: [],
             total_cost: 0,
@@ -66,6 +65,7 @@ class Selection extends Component {
                 },
                 body: JSON.stringify(this.state.orders)
             });
+            this.props.onSubmit();
         }
     }
 

@@ -40,7 +40,7 @@ class OrderContainer extends Component {
       console.log(this.state.orders);
       return <Cart cartId={this.state.cartId} orders={this.state.orders} addOrder={this.switchToOrder}/>;
     } else if (this.state.curPage === 'order') {
-      return <Selection />;
+      return <Selection onSubmit={this.switchToCart} />;
     } else {
       return <div></div>
     }
