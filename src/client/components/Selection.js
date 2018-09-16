@@ -9,8 +9,10 @@ class Selection extends Component {
     constructor(props) {
         super(props);
         this.updateState = this.updateState.bind(this);
+        this.checkOrder = this.checkOrder.bind(this);
         this.state = {
             orders: [],
+            total_cost: 0,
             menuItems: [
                 {
                     name: 'Bubble Milk Tea',
@@ -70,9 +72,11 @@ class Selection extends Component {
     updateState(order) {
         var newArray = this.state.orders.slice();
         newArray.push(order);
+        var number = Number(order.price.replace(/[^0-9.-]+/g,""));
+        var newCost = this.state.total_cost + number;
+        this.setState({total_cost: newCost});
         this.setState({orders: newArray});
     }
-
 
     render(props) {
         return(

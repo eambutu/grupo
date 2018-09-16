@@ -23,9 +23,9 @@ class Modal extends Component {
         var venmo = document.getElementById('venmo-handle').value;
         var size = document.getElementById('drink-size').value;
         var top = document.getElementById('drink-toppings').value;
-        var data = {'name': name, 'venmo': venmo, 'size': size, 'toppings': top};
-        console.log(data);
+        var data = {'name': name, 'venmo': venmo, 'size': size, 'toppings': top, 'price': this.state.price};
         this.props.updateState(data);
+        this.props.hideModal();
     }
 
     handleChange(e){
@@ -65,7 +65,7 @@ class Modal extends Component {
                     </select>
                 </div>
                 <div className='space-wrapper'>
-                <button onClick={this.handleSubmit}>Order</button>
+                <button onClick={this.handleSubmit} type='button'>Order</button>
                 </div>
                 </form>
                 
