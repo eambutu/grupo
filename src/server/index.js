@@ -51,6 +51,17 @@ db.once('open', () => {
   Order = mongoose.model('Order', orderSchema);
   Cart = mongoose.model('Cart', cartSchema);
   Carts = mongoose.model('Carts', cartsSchema);
+
+  const menuItemSchema = new mongoose.Schema({
+    name: String,
+    price: Schema.Types.Decimal128
+  });
+
+  const menuSchema = new mongoose.Schema({
+    items: [menuItemSchema]
+  });
+
+  Menu = mongoose.model('Menu', menuSchema);
 });
 
 app.post('/createCart', (req, res) => {
@@ -58,7 +69,7 @@ app.post('/createCart', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
-  const cartId = randString(5);
+  const cartId = randString(6);
   const newCart = new Cart({ cartid: cartId, orders: [] });
   newCart.save().then(() => {
     res.json({
@@ -76,7 +87,9 @@ app.post('/addOrder', (req, res) => {
   const myData = new Order(req.body)
   var cartsColl = db.collection('carts');
   cartsColl.findOneAndUpdate({"cartid" : myData.cartid}, {$push: { orders: myData}});
-  return true;
+  res.json({
+    success: true
+  });
 });
 
 app.post('/deleteCart', (req, res) => {
@@ -84,7 +97,9 @@ app.post('/deleteCart', (req, res) => {
   const cart = new Cart(req.body);
   var cartsColl = db.collection('carts');
   cartsColl.remove({"cartid": cart.cartid});
-  return true;
+  res.json({
+    success: true
+  });
 });
 
 
