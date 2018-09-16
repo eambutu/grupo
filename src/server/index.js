@@ -38,38 +38,31 @@ db.once('open', () => {
     orders: [orderSchema]
   });
 
-  Cart = mongoose.model('Cart', cartSchema);
-
   const cartsSchema = new mongoose.Schema({
     carts: [cartSchema]
   });
 
   // Models
   Order = mongoose.model('Order', orderSchema);
+  Cart = mongoose.model('Cart', cartSchema);
   Carts = mongoose.model('Carts', cartsSchema);
 });
-db.createCollection('Carts');
 
 app.post('/createCart', (req, res) => {
+  console.log('in create Cart');
   const newCart = new Cart(req.body);
-  newCart.save((err) => {
-    if (err) return console.error(err);
-    // saved!
-    return null;
+  newCart.save().then(item => {
+    res.send("Cart saved to database");
+  }).catch(err => {
+    res.status(400).send('Unable to save to database');
   });
 });
 
 app.post('/addOrder', (req, res) => {
   const myData = new Order(req.body)
-  const currentCart = Carts.find({ id: myData.cartId });
-  const currentCartItems = currentCart.orders;
-  const updatedCartItems = {$concatArrays: [currentCartItems, [myData]]};
-  db.Carts.findOneAndUpdate({ cartid: myData.cartId },
-    myData.save().then(item => {
-      res.send("Order saved to database");
-    }).catch(err => {
-      res.status(400).send('Unable to save to database');
-    }));
+  var cartsColl = db.collection('carts');
+  cartsColl.findOneAndUpdate({"cartid" : myData.cartid}, {$push: { orders: myData}});
+  return true;
 });
 
 app.get('/getCart', (req, res) => {
