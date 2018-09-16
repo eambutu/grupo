@@ -72,9 +72,18 @@ app.post('/createCart', (req, res) => {
 });
 
 app.post('/addOrder', (req, res) => {
+  console.log('in add Order');
   const myData = new Order(req.body)
   var cartsColl = db.collection('carts');
   cartsColl.findOneAndUpdate({"cartid" : myData.cartid}, {$push: { orders: myData}});
+  return true;
+});
+
+app.post('/deleteCart', (req, res) => {
+  console.log('in delete Cart');
+  const cart = new Cart(req.body);
+  var cartsColl = db.collection('carts');
+  cartsColl.remove({"cartid": cart.cartid});
   return true;
 });
 
