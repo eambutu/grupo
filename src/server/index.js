@@ -54,7 +54,7 @@ db.once('open', () => {
 
   const menuItemSchema = new mongoose.Schema({
     name: String,
-    price: Schema.Types.Decimal128
+    price: mongoose.Schema.Types.Decimal128
   });
 
   const menuSchema = new mongoose.Schema({
