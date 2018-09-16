@@ -8,20 +8,26 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      show: false
+      show: false,
+      price: '$5.00'
     }
-    this.updateState = this.updateState.bind(this);
+    this.updateState = props.updateState
     this.popUp = this.popUp.bind(this);
-    
+    this.hideModal = this.hideModal.bind(this);
+    this.checkModalState = this.checkModalState.bind(this);
   };
 
-  updateState(order) {
-    this.setState({data: order})
+
+  hideModal() {
+    this.setState({show: false});
   }
 
   popUp() {
-    this.setState({show: true})
+    this.setState({show: true});
+  }
+
+  checkModalState() {
+    return this.state.show ? 1 : 0;
   }
 
 
@@ -38,11 +44,11 @@ class Card extends Component {
           <div className='item-description'>Smooth, creamy, delicious. Three words for the perfect afternoon drink!</div>
         </div>
         <div className="flex-col2">
-            <div className='item-price'>$5.00</div>
+            <div className='item-price'>{this.state.price}</div>
             <button onClick={this.popUp} className="button-buy">Buy</button>
+            {this.state.show ? <Modal hideModal={this.hideModal} updateState={this.updateState} price={this.state.price} show={this.state.show} /> : null}
         </div>
       </div>
-      {this.state.show ? <Modal show={this.state.show} /> : null }
     </div>
     
     );
