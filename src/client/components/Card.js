@@ -9,7 +9,8 @@ class Card extends Component {
     super(props);
     this.state = {
       data: [],
-      show: false
+      show: false,
+      price: '$5.00'
     }
     this.updateState = this.updateState.bind(this);
     this.popUp = this.popUp.bind(this);
@@ -38,11 +39,11 @@ class Card extends Component {
           <div className='item-description'>Smooth, creamy, delicious. Three words for the perfect afternoon drink!</div>
         </div>
         <div className="flex-col2">
-            <div className='item-price'>$5.00</div>
+            <div className='item-price'>{this.state.price}</div>
             <button onClick={this.popUp} className="button-buy">Buy</button>
+            {this.state.show ? <Modal price={this.state.price} show={this.state.show} /> : null}
         </div>
       </div>
-      {this.state.show ? <Modal show={this.state.show} /> : null }
     </div>
     
     );
