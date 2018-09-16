@@ -90,11 +90,10 @@ app.post('/deleteCart', (req, res) => {
 
 app.get('/getCart', (req, res) => {
   console.log('in get Cart');
-  const cart = new Cart(req.body);
   var cartsColl = db.collection('carts');
-  var orders = cartsColl.find({"cartid" : cart.cartid}, {"orders":1, _id:0}).toArray(function(err, results) { 
+  var orders = cartsColl.find({"cartid" : req.query.cartid}, {"orders":1, _id:0}).toArray(function(err, results) {
     console.log(results);
-    res.jsonp(results);
+    res.json(results);
   });
 });
 
