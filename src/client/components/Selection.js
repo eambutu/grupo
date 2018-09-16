@@ -73,7 +73,7 @@ class Selection extends Component {
         this.setState({orders: newArray});
     }
 
-    
+
     render(props) {
         return(
             <div className="shell">
@@ -83,6 +83,9 @@ class Selection extends Component {
                         <Card key={index} updateState={this.updateState} name={item.name} description={item.description} price={item.price} img={item.img}>
                         </Card>
                     ))}
+                </div>
+                <div className="button-container">
+                  <button className="button" onClick={this.addOrder}>Submit</button>
                 </div>
             </div>
         );
