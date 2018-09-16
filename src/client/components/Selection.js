@@ -56,17 +56,24 @@ class Selection extends Component {
                 },
             ]
         }
+        this.addOrder = () => {
+            fetch('http://localhost:8080/addOrder', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state.orders)
+            });
+        }
     }
 
     updateState(order) {
         var newArray = this.state.orders.slice();
         newArray.push(order);
-        console.log(newArray);
         this.setState({orders: newArray});
-        console.log(this);
-        console.log('hello');
     }
 
+    
     render(props) {
         return(
             <div className="shell">

@@ -65,7 +65,7 @@ class Modal extends Component {
                     </select>
                 </div>
                 <div className='space-wrapper'>
-                <button onClick={this.handleSubmit} type='button'>Order</button>
+                <button onClick={this.handleSubmit}>Order</button>
                 </div>
                 </form>
                 
