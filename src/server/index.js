@@ -54,14 +54,35 @@ db.once('open', () => {
 
   const menuItemSchema = new mongoose.Schema({
     name: String,
-    price: Schema.Types.Decimal128
+    price: mongoose.Schema.Types.Decimal128
   });
 
   const menuSchema = new mongoose.Schema({
+    menuid: String,
     items: [menuItemSchema]
   });
 
+  const menusSchema = new mongoose.Schema({
+    menus: [menuSchema]
+  });
+
   Menu = mongoose.model('Menu', menuSchema);
+  Menus = mongoose.model('Menus', menusSchema);
+});
+
+app.post('/createMenu', (req, res) => {
+  console.log('in create Menu');
+  const menuId = randString(6);
+  const newMenu = new Menu({ menuid: menuId, items: [] });
+  newMenu.save().then() => {
+    res.json({
+      success: true,
+      menuid: menuId
+    });
+  }).catch(err => {
+    console.log(err);
+    res.json({ success: false });
+  });
 });
 
 app.post('/createCart', (req, res) => {
