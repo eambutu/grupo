@@ -3,6 +3,17 @@ const path = require('path');
 
 const app = express();
 
+	
+const MongoClient = require('mongodb').MongoClient;
+
+//MongoClient.connect('mongodb://localhost:27017/db', { useNewUrlParser: true }, (err, db) => {
+//    let databaseName = 'Grupo';
+//    let database = db.db(databaseName);
+   // carts = database.collection('carts');
+//    
+//});
+
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,38 +22,56 @@ var mongoose = require("mongoose");
 mongoose.Promise=global.Promise;
 mongoose.connect("mongodb://localhost:27017/grupodb");
 
-var item = new mongoose.Schema({
-  name: String,
-  quantity: int,
-  size: String
-});
+var db = mongoose.connection;
 
-var orderSchema = new mongoose.Schema({
-  name: String,
-  venmo: String,
-  items: [item]
-});
+db.on('error', console.error.bind(console, 'connection error:'))
 
-var cartSchema = new mongoose.Schema({
-  cartid: String,
-  orders: [orderSchema]
-});
+db.once('open', function() {
+    //define schema
+    var item = new mongoose.Schema({
+      name: String, 
+      quantity: Number,, 
+      size: String
+    });
 
-var cartsSchema = new mongoose.Schema({
-  carts: [cartSchema]
-});
+    var orderSchema = new mongoose.Schema({
+      cartid: String,
+      name: String,
+      venmo: String,
+      items: [item]
+    });
 
-var Carts = mongoose.model("Carts", cartsSchema);
+    var cartSchema = new mongoose.Schema({
+      cartid: String,
+      orders: [orderSchema]
+    });
 
-//TODO: Fix requests below
+    var Cart = mongoose.model("Cart", cartSchema);
 
-app.post("/createCart", (req, res) => {
-    var myData = new Cart(req.body);
-    mongoose.createCollection(req.body.cartid);
-});
+    var cartsSchema = new mongoose.Schema({
+      carts: [cartSchema]
+    });
+
+    //Models
+    var Order = mongoose.model("Order", orderSchema);
+    var Carts = mongoose.model("Carts", cartsSchema);
+}
+mongoose.createCollection("Carts");
+
+app.post("/createCart", (req, res) ==> {
+    var newCart = new Cart(req.body);
+    newCart.save(function (error, newCart) {
+      if (err) return console.error(err);
+      // saved!
+    });
+});    
 
 app.post("/addOrder", (req, res) => {
-    var myData = new Order(req.body);
+    var myData = new Order(req.body)
+    var currentCart = db.Carts.find({id: myData.cartId});
+    var currentCartItems = currentCart.orders;
+    var updatedCartItems = $concatArrays: [currentCartItems, [myData]];
+    db.Carts.findOneAndUpdate({"id": myData.cartId}, 
     myData.save()
         .then(item => {
             res.send("Order saved to database");
@@ -53,7 +82,7 @@ app.post("/addOrder", (req, res) => {
 });
 
 app.get("/getCart", (req, res) => {
-
+    // TODO: implement
     res.sendFile();
 });
 
