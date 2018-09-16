@@ -51,6 +51,17 @@ db.once('open', () => {
   Order = mongoose.model('Order', orderSchema);
   Cart = mongoose.model('Cart', cartSchema);
   Carts = mongoose.model('Carts', cartsSchema);
+
+  const menuItemSchema = new mongoose.Schema({
+    name: String,
+    price: Schema.Types.Decimal128
+  });
+
+  const menuSchema = new mongoose.Schema({
+    items: [menuItemSchema]
+  });
+
+  Menu = mongoose.model('Menu', menuSchema);
 });
 
 app.post('/createCart', (req, res) => {
