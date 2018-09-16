@@ -13,15 +13,10 @@ class Modal extends Component {
             top: '',
             price: props.price,
         }
-        this.hideModal = this.hideModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     };
 
-    hideModal() {
-        this.setState({ show: false });
-        console.log(this);
-    }
     
     handleSubmit() {
         var name = document.getElementById('name').value;
@@ -75,7 +70,7 @@ class Modal extends Component {
                 </form>
                 
                 <div className='space-wrapper'>
-                    <button type='button' onClick={this.hideModal}>Cancel</button>
+                    <button type='button' onClick={this.props.hideModal}>Cancel</button>
                     </div>
                 </section>
                 </div>

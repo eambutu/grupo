@@ -13,14 +13,21 @@ class Card extends Component {
     }
     this.updateState = props.updateState
     this.popUp = this.popUp.bind(this);
-    
+    this.hideModal = this.hideModal.bind(this);
+    this.checkModalState = this.checkModalState.bind(this);
   };
 
 
+  hideModal() {
+    this.setState({show: false});
+  }
 
   popUp() {
     this.setState({show: true});
-    console.log(this);
+  }
+
+  checkModalState() {
+    return this.state.show ? 1 : 0;
   }
 
 
@@ -39,7 +46,7 @@ class Card extends Component {
         <div className="flex-col2">
             <div className='item-price'>{this.state.price}</div>
             <button onClick={this.popUp} className="button-buy">Buy</button>
-            {this.state.show ? <Modal updateState={this.updateState} price={this.state.price} show={this.state.show} /> : null}
+            {this.state.show ? <Modal hideModal={this.hideModal} updateState={this.updateState} price={this.state.price} show={this.state.show} /> : null}
         </div>
       </div>
     </div>
