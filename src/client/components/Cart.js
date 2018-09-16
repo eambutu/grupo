@@ -51,30 +51,32 @@ class Cart extends Component {
         <div className="button-container">
           <button className="button">Add Order</button>
         </div>
-        <table className="center">
-          <tbody className="orders-table">
-            {Object.values(this.state.orders).map(order => (
-              <tr className="orders-row-container">
-                <div className="orders-row">
-                  <td className="orders-element">
-                    {order.user}
-                  </td>
-                  <td className="orders-element">
-                    <table>
-                      <tbody>
-                        {Object.values(order.items).map(item => (
-                          <tr>
-                            {item.name}, {item.quantity}, {item.size}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                </div>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div>
+          <table className="center">
+            <tbody className="orders-table">
+              {Object.values(this.state.orders).map(order => (
+                <tr className="orders-row-container">
+                  <div className="orders-row">
+                    <td className="orders-element">
+                      {order.user}
+                    </td>
+                    <td className="orders-element">
+                      <table>
+                        <tbody>
+                          {Object.values(order.items).map(item => (
+                            <tr>
+                              {item.name}, {item.quantity}, {item.size}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </td>
+                  </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
