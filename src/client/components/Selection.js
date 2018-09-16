@@ -8,7 +8,9 @@ class Selection extends Component {
 
     constructor(props) {
         super(props);
+        this.updateState = this.updateState.bind(this);
         this.state = {
+            orders: [],
             menuItems: [
                 {
                     name: 'Bubble Milk Tea',
@@ -56,13 +58,22 @@ class Selection extends Component {
         }
     }
 
+    updateState(order) {
+        var newArray = this.state.orders.slice();
+        newArray.push(order);
+        console.log(newArray);
+        this.setState({orders: newArray});
+        console.log(this);
+        console.log('hello');
+    }
+
     render(props) {
         return(
             <div className="shell">
                 <div className="title">Order from Kung Fu Tea</div>
                 <div className = "flex-body">
                     {Object.values(this.state.menuItems).map((item, index) => (
-                        <Card key={index} name={item.name} description={item.description} price={item.price} img={item.img}>
+                        <Card key={index} updateState={this.updateState} name={item.name} description={item.description} price={item.price} img={item.img}>
                         </Card>
                     ))}
                 </div>

@@ -24,7 +24,13 @@ class Modal extends Component {
     }
     
     handleSubmit() {
-        console.log(this);
+        var name = document.getElementById('name').value;
+        var venmo = document.getElementById('venmo-handle').value;
+        var size = document.getElementById('drink-size').value;
+        var top = document.getElementById('drink-toppings').value;
+        var data = {'name': name, 'venmo': venmo, 'size': size, 'toppings': top};
+        console.log(data);
+        this.props.updateState(data);
     }
 
     handleChange(e){
@@ -42,7 +48,7 @@ class Modal extends Component {
                 <form className="pure-form pure-form-stacked">
                 <div className='space-wrapper'>
                     <label forhtml="email">Name</label>
-                    <input id="email" placeholder="Name" name='name' value={this.state.name} onChange={(e) => this.handleChange(e)}></input>
+                    <input id="name" placeholder="Name" name='name' value={this.state.name} onChange={(e) => this.handleChange(e)}></input>
                 </div>
                 <div className='space-wrapper'>
                     <label forhtml="venmo-handle">Venmo Handle</label>
@@ -64,12 +70,12 @@ class Modal extends Component {
                     </select>
                 </div>
                 <div className='space-wrapper'>
-                <button onClick={this.handleSubmit} type="submit" className="pure-button pure-button-primary">Order</button>
+                <button onClick={this.handleSubmit} type='button'>Order</button>
                 </div>
                 </form>
                 
                 <div className='space-wrapper'>
-                    <button onClick={this.hideModal}>Cancel</button>
+                    <button type='button' onClick={this.hideModal}>Cancel</button>
                     </div>
                 </section>
                 </div>
