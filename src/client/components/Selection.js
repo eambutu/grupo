@@ -9,7 +9,6 @@ class Selection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectionId: 0,
             menuItems: [
                 {
                     name: 'Bubble Milk Tea',
@@ -54,12 +53,6 @@ class Selection extends Component {
                     img: '../bubbletea.png',
                 },
             ]
-        }
-    }
-
-    componentDidMount() {
-        if (this.props.match.params.cartId) {
-          this.setState({ cartId: this.props.match.params.cartId });
         }
     }
 
