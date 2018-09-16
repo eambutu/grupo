@@ -1,6 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+
+function randString(length) {
+  return crypto.randomBytes(length / 2).toString('hex');
+}
 
 const app = express();
 
@@ -50,11 +55,19 @@ db.once('open', () => {
 
 app.post('/createCart', (req, res) => {
   console.log('in create Cart');
-  const newCart = new Cart(req.body);
-  newCart.save().then(item => {
-    res.send("Cart saved to database");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+  const cartId = randString(5);
+  const newCart = new Cart({ cartid: cartId, orders: [] });
+  newCart.save().then(() => {
+    res.json({
+      success: true,
+      cartid: cartId
+    });
   }).catch(err => {
-    res.status(400).send('Unable to save to database');
+    console.log(err);
+    res.json({ success: false });
   });
 });
 
